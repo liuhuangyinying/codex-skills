@@ -189,7 +189,7 @@
 - OpenAI Developers: <https://developers.openai.com/>
 - Codex: <https://openai.com/codex/>
 
-截至本指南撰写时，未找到可稳定直链引用的官方 Notion 授权截图。本指南按当前 Codex + Notion 实操流程整理。若后续官方发布稳定截图或更详细连接器文档，建议将截图或官方链接补充到本目录。
+本指南按当前 Codex + Notion 实操流程整理。
 
 ## 安全注意事项
 
