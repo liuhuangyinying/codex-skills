@@ -10,6 +10,14 @@
 | --- | --- | --- |
 | `feishu-meeting-notes-to-notion` | 读取飞书会议、妙记、AI notes 和逐字稿，并整理成 Notion 会议纪要。 | `skills/feishu-meeting-notes-to-notion` |
 
+## 插件集成指南
+
+Codex 插件、连接器和外部工具的配置说明放在 [`plugin-integration-guides/`](plugin-integration-guides/)。
+
+| 指南 | 用途 |
+| --- | --- |
+| [Codex 授权 Notion 操作指引](plugin-integration-guides/notion-authorization.zh-CN.md) | 说明如何在 Codex 中连接 Notion，并验证是否授权成功。 |
+
 ## 安装单个 Skill
 
 从本仓库安装某一个 skill：

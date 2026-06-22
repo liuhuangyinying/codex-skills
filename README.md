@@ -10,6 +10,14 @@ Personal Codex skills collection.
 | --- | --- | --- |
 | `feishu-meeting-notes-to-notion` | Read Feishu/Lark meetings, Minutes, AI notes, and transcripts, then create polished meeting notes in Notion. | `skills/feishu-meeting-notes-to-notion` |
 
+## Integration Guides
+
+Plugin and connector setup guides live in [`plugin-integration-guides/`](plugin-integration-guides/).
+
+| Guide | Purpose |
+| --- | --- |
+| [Authorize Notion In Codex](plugin-integration-guides/notion-authorization.zh-CN.md) | Chinese guide for connecting Notion to Codex and verifying access. |
+
 ## Install A Skill
 
 Install a single skill from this repository:
