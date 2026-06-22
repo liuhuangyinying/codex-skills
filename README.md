@@ -1,5 +1,7 @@
 # Codex Skills
 
+[![中文](https://img.shields.io/badge/语言-中文-blue)](README.zh-CN.md)
+
 Personal Codex skills collection.
 
 ## Skills
@@ -25,16 +27,16 @@ Restart Codex after installation so the new skill can be discovered.
 Example prompt:
 
 ```text
-使用 $feishu-meeting-notes-to-notion 读取 2026-06-20 的飞书会议和妙记，整理会议纪要到这个 Notion 页面下：<Notion链接>
+Use $feishu-meeting-notes-to-notion to read the Feishu meetings and Minutes from 2026-06-20, then create a meeting note under this Notion page: <Notion URL>
 ```
 
 Expected output style:
 
 - Create a new Notion child page.
-- Page title format: `🐘 YYYY-MM-DD <会议主题>`.
+- Page title format: `🐘 YYYY-MM-DD <meeting theme>`.
 - Body includes meeting date, meeting theme, attendees, concise notes, action items, and original Feishu source links.
 - Source links include only Feishu Minutes, AI notes, or transcript links that were actually read and used.
-- Do not include debug sections such as `读取情况`, failed API calls, missing permissions, or unread clips in the final Notion note.
+- Do not include debug sections such as read-status logs, failed API calls, missing permissions, or unread clips in the final Notion note.
 
 ## Requirements
 
