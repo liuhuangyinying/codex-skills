@@ -90,6 +90,180 @@ feishu-cli auth status
 feishu-cli doctor
 ```
 
+## 在 Codex 中安装和配置 feishu-cli
+
+`feishu-cli` 是飞书开放平台命令行工具，当前仓库里的飞书相关 skill 会通过它读取会议、妙记、AI notes、逐字稿和飞书文档。官方仓库见 [riba2534/feishu-cli](https://github.com/riba2534/feishu-cli)。
+
+### 1. 安装 feishu-cli
+
+推荐使用官方一键安装脚本：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/riba2534/feishu-cli/main/install.sh | bash
+```
+
+已安装的用户再次执行同一命令即可更新。安装完成后检查：
+
+```bash
+which feishu-cli
+feishu-cli --version
+feishu-cli --help
+```
+
+如果 Codex 终端提示 `command not found`，确认二进制所在目录已经加入 `PATH`。常见位置包括：
+
+```bash
+/usr/local/bin/feishu-cli
+~/.local/bin/feishu-cli
+```
+
+也可以使用 Go 安装：
+
+```bash
+go install github.com/riba2534/feishu-cli@latest
+```
+
+### 2. 创建或配置飞书应用凭证
+
+推荐让 CLI 自动创建应用并保存凭证：
+
+```bash
+feishu-cli config create-app --save
+```
+
+按终端提示打开授权链接，用飞书扫码确认。成功后，配置会写入：
+
+```bash
+~/.feishu-cli/config.yaml
+```
+
+如果已经有飞书开放平台应用，也可以手动配置：
+
+```bash
+feishu-cli config init
+```
+
+然后编辑 `~/.feishu-cli/config.yaml`，或使用环境变量：
+
+```bash
+export FEISHU_APP_ID="cli_xxx"
+export FEISHU_APP_SECRET="xxx"
+```
+
+配置优先级通常是：环境变量 > 配置文件。
+
+### 3. 开通权限 scope
+
+在飞书开放平台的应用权限管理中，为应用开通需要的权限。不同能力需要不同 scope：
+
+- 读取妙记、AI notes、逐字稿：会议、妙记、文档读取相关权限。
+- 搜索文档或消息：搜索相关权限。
+- 读取群聊或私聊：消息历史、群聊、用户相关权限。
+- 写入或导出飞书文档：云文档、云空间相关权限。
+
+不建议一次性申请过宽权限。遇到 `missing scope` 报错时，按错误提示补充对应 scope，再重新授权。
+
+### 4. 完成 User Access Token 登录
+
+很多读取类能力需要用户身份，而不仅是 Bot 身份。使用 OAuth Device Flow 登录：
+
+```bash
+feishu-cli auth login
+```
+
+按终端输出打开链接或扫码完成授权。
+
+也可以按场景申请推荐权限：
+
+```bash
+feishu-cli auth login --domain search --recommend
+```
+
+或显式指定 scope：
+
+```bash
+feishu-cli auth login --scope "minutes:minutes.basic:read minutes:minutes.transcript:export"
+```
+
+检查当前登录状态：
+
+```bash
+feishu-cli auth status
+feishu-cli auth status --verify -o json
+```
+
+检查某个 scope 是否已授权：
+
+```bash
+feishu-cli auth check --scope "search:docs:read"
+```
+
+刷新 token：
+
+```bash
+feishu-cli auth refresh
+```
+
+退出登录：
+
+```bash
+feishu-cli auth logout
+```
+
+### 5. 健康检查
+
+配置完成后运行：
+
+```bash
+feishu-cli doctor
+```
+
+建议在让 Codex 调用飞书 skill 前，至少确认：
+
+- `config` 正常。
+- `user_token` 正常，或当前任务确实只需要 Bot Token。
+- 网络和飞书 endpoint 可访问。
+- 本地依赖检查通过。
+
+### 6. 常用验证命令
+
+验证文档创建：
+
+```bash
+feishu-cli doc create --title "Hello Feishu"
+```
+
+验证飞书会议/妙记能力：
+
+```bash
+feishu-cli vc search --start 2026-06-20 --end 2026-06-20 --page-size 10 -o json
+```
+
+验证文档搜索：
+
+```bash
+feishu-cli auth login --domain search --recommend
+feishu-cli search docs "关键词" -o json
+```
+
+验证当前可用命令：
+
+```bash
+feishu-cli --help
+feishu-cli auth --help
+feishu-cli vc --help
+```
+
+### 7. 在 Codex 中使用
+
+安装并配置完成后，可以直接让 Codex 使用对应 skill。例如：
+
+```text
+使用 $feishu-meeting-notes-to-notion 读取 2026-06-20 的飞书会议和妙记，整理会议纪要到这个 Notion 页面下：<Notion链接>
+```
+
+Codex 执行过程中如果遇到权限缺失，应只补充缺失的 scope，然后继续原任务。最终写入 Notion 的纪要不应包含读取失败日志、权限调试信息或命令输出。
+
 ## 仓库结构
 
 每个 skill 单独放在 `skills/` 下：

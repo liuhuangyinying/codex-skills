@@ -90,6 +90,64 @@ feishu-cli auth status
 feishu-cli doctor
 ```
 
+## Install And Configure feishu-cli For Codex
+
+`feishu-cli` is the Feishu/Lark Open Platform CLI used by the Feishu-related skills in this repository. See the upstream project: [riba2534/feishu-cli](https://github.com/riba2534/feishu-cli).
+
+Recommended install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/riba2534/feishu-cli/main/install.sh | bash
+```
+
+Verify installation:
+
+```bash
+which feishu-cli
+feishu-cli --version
+feishu-cli --help
+```
+
+Create and save a Feishu app configuration:
+
+```bash
+feishu-cli config create-app --save
+```
+
+Or configure an existing app with `~/.feishu-cli/config.yaml` or environment variables:
+
+```bash
+export FEISHU_APP_ID="cli_xxx"
+export FEISHU_APP_SECRET="xxx"
+```
+
+Many read operations need a user token. Log in with OAuth Device Flow:
+
+```bash
+feishu-cli auth login
+feishu-cli auth status --verify -o json
+```
+
+For search-related work, request recommended search scopes:
+
+```bash
+feishu-cli auth login --domain search --recommend
+```
+
+Check a specific scope:
+
+```bash
+feishu-cli auth check --scope "search:docs:read"
+```
+
+Run a health check before using Feishu skills from Codex:
+
+```bash
+feishu-cli doctor
+```
+
+For detailed Chinese setup notes, see [`README.zh-CN.md`](README.zh-CN.md#在-codex-中安装和配置-feishu-cli).
+
 ## Repository Layout
 
 Each skill lives in its own folder under `skills/`:
