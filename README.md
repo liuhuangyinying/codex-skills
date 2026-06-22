@@ -9,6 +9,7 @@ Personal Codex skills collection.
 | Skill | Purpose | Path |
 | --- | --- | --- |
 | `feishu-meeting-notes-to-notion` | Read Feishu/Lark meetings, Minutes, AI notes, and transcripts, then create polished meeting notes in Notion. | `skills/feishu-meeting-notes-to-notion` |
+| `notion-work-briefing-automation` | Create or maintain a Notion daily work briefing automation from a task database and recent work-log pages. | `skills/notion-work-briefing-automation` |
 
 ## Integration Guides
 
@@ -28,6 +29,14 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --path skills/feishu-meeting-notes-to-notion
 ```
 
+Install the Notion work briefing automation skill:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo liuhuangyinying/codex-skills \
+  --path skills/notion-work-briefing-automation
+```
+
 Restart Codex after installation so the new skill can be discovered.
 
 ## Use The Feishu Meeting Skill
@@ -45,6 +54,26 @@ Expected output style:
 - Body includes meeting date, meeting theme, attendees, concise notes, action items, and original Feishu source links.
 - Source links include only Feishu Minutes, AI notes, or transcript links that were actually read and used.
 - Do not include debug sections such as read-status logs, failed API calls, missing permissions, or unread clips in the final Notion note.
+
+## Use The Notion Work Briefing Automation Skill
+
+Example prompt:
+
+```text
+Use $notion-work-briefing-automation to create a Notion work briefing automation that runs every day at 10:00.
+
+Task database: <Notion task database URL>
+Work-log source: <Notion work-log or knowledge base URL>
+Output parent page: <Notion parent page URL>
+Core members: Ellen, 胡琛, Linda, 沐公子
+```
+
+Expected output style:
+
+- Create or update `yyyy-MM-dd 「工作早报」` under the target Notion page.
+- Read both the task database and recent work-log pages.
+- Include today's priorities, today's work, tomorrow's work, recent work synthesis, yesterday's per-person progress, risks, and source links.
+- Keep the final briefing clean: no retrieval process, permission notes, failed query logs, or "supplement" sections.
 
 ## Requirements
 

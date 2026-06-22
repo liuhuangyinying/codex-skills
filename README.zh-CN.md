@@ -9,6 +9,7 @@
 | Skill | 用途 | 路径 |
 | --- | --- | --- |
 | `feishu-meeting-notes-to-notion` | 读取飞书会议、妙记、AI notes 和逐字稿，并整理成 Notion 会议纪要。 | `skills/feishu-meeting-notes-to-notion` |
+| `notion-work-briefing-automation` | 创建或维护 Notion 工作早报自动化，从任务面板和工作记录生成每日早报。 | `skills/notion-work-briefing-automation` |
 
 ## 插件集成指南
 
@@ -28,6 +29,14 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --path skills/feishu-meeting-notes-to-notion
 ```
 
+安装 Notion 工作早报自动化 skill：
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo liuhuangyinying/codex-skills \
+  --path skills/notion-work-briefing-automation
+```
+
 安装完成后重启 Codex，让新 skill 被自动发现。
 
 ## 使用飞书会议纪要 Skill
@@ -45,6 +54,26 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 - 正文包含会议日期、会议主题、参会人、精炼纪要、行动项和飞书原始来源链接。
 - 来源链接只放实际读取并作为正文依据的飞书妙记、AI notes 或逐字稿链接。
 - 最终 Notion 纪要中不要包含 `读取情况`、API 调用失败、权限缺失、未读取片段等调试信息。
+
+## 使用 Notion 工作早报自动化 Skill
+
+示例提示词：
+
+```text
+使用 $notion-work-briefing-automation 帮我创建一个每天 10:00 的 Notion 工作早报自动化。
+
+任务面板：<Notion 任务数据库链接>
+工作记录页面：<Notion 工作记录/知识库链接>
+输出到：<Notion 工作日志父页面链接>
+核心成员：Ellen、胡琛、Linda、沐公子
+```
+
+预期输出风格：
+
+- 每天在目标 Notion 页面下创建或更新 `yyyy-MM-dd 「工作早报」`。
+- 同时读取任务面板和工作记录页面。
+- 正文包含今日重点、今日事项、明日事项、近两天工作提炼、昨天团队进展、风险提醒和数据来源。
+- 最终早报只呈现结果，不包含检索过程、权限限制、失败日志或“补充”段落。
 
 ## 依赖
 

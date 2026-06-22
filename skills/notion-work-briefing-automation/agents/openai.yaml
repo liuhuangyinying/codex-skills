@@ -1,0 +1,7 @@
+interface:
+  display_name: "Notion 工作早报自动化"
+  short_description: "从 Notion 任务和工作记录生成每日工作早报"
+  default_prompt: "使用 $notion-work-briefing-automation 创建或更新 Notion 工作早报自动化。"
+
+policy:
+  allow_implicit_invocation: true
